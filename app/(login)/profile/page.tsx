@@ -204,7 +204,7 @@ export default function Profile() {
       )}
 
       {isEditing ? (
-        <div>
+        <div className="w-1/2 flex flex-col items-center">
           {/* 編集モード */}
           <input
             name="name"
@@ -241,7 +241,7 @@ export default function Profile() {
             placeholder="USER ID"
             className="w-full border p-2 rounded mt-3 mb-10 h-15"
           />
-          <div className="mt-3 mb-20">
+          <div className="mt-3 mb-20 ">
             {isSaving ? (
               <button
                 className="bg-black text-white font-black text-xs h-15 w-full px-20 rounded-md"

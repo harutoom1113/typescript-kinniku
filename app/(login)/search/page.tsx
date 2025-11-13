@@ -1,18 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NamePlateImage from "@/app/component/nameplateImage";
 import TrainingHeatmap from "@/app/component/trainingHeatmap";
 import Button, { ButtonText } from "@/app/component/button";
+import { useUser } from "@/lib/auth/user-context";
 import { getUserData } from "@/lib/firestore/user-data";
 import { UserData } from "@/lib/firestore/user-data";
 import { DEFAULT_PROFILE_COLOR } from "@/lib/constants/colors";
+import {
+  addFollowing,
+  isFollowing as checkIsFollowing,
+} from "@/lib/firestore/following";
 
 export default function Search() {
+  const { user } = useUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedUser, setSearchedUser] = useState<UserData | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const [isFollowingUser, setIsFollowingUser] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // フォロー状態をチェック
+  useEffect(() => {
+    const checkFollowStatus = async () => {
+      if (user && searchedUser) {
+        const following = await checkIsFollowing(user.uid, searchedUser.userId);
+        setIsFollowingUser(following);
+      }
+    };
+    checkFollowStatus();
+  }, [user, searchedUser]);
 
   // 検索実行
   const handleSearch = async () => {
@@ -37,6 +56,21 @@ export default function Search() {
       setNotFound(true);
     } finally {
       setIsSearching(false);
+    }
+  };
+
+  // フォロー処理
+  const handleFollow = async () => {
+    if (!user || !searchedUser || isFollowingUser || isProcessing) return;
+
+    setIsProcessing(true);
+    try {
+      await addFollowing(user.uid, searchedUser.userId);
+      setIsFollowingUser(true);
+    } catch (error) {
+      console.error("Failed to follow user:", error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -106,9 +140,13 @@ export default function Search() {
             />
           </div>
 
-          {/* Followボタン（非機能） */}
+          {/* Followボタン */}
           <div className="mb-4">
-            <Button text={ButtonText.FOLLOW} />
+            <Button
+              text={ButtonText.FOLLOW}
+              onClick={handleFollow}
+              disabled={isFollowingUser || isProcessing}
+            />
           </div>
 
           {/* TrainingHeatmap */}
