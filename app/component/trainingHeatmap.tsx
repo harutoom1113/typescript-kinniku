@@ -41,6 +41,14 @@ export default function TrainingHeatmap({ userId }: TrainingHeatmapProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
 
+  // ローカル時刻でYYYY-MM-DD形式の日付キーを取得
+  const getLocalDateKey = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     const loadTrainingData = async () => {
       try {
@@ -53,7 +61,7 @@ export default function TrainingHeatmap({ userId }: TrainingHeatmapProps) {
           if (session.startTrain && session.finishTrain) {
             const startDate = new Date(session.startTrain);
             const finishDate = new Date(session.finishTrain);
-            const dateKey = startDate.toISOString().split("T")[0]; // YYYY-MM-DD
+            const dateKey = getLocalDateKey(startDate); // ローカル時刻で日付取得
 
             // 分単位で時間を計算
             const durationMs = finishDate.getTime() - startDate.getTime();
@@ -97,7 +105,7 @@ export default function TrainingHeatmap({ userId }: TrainingHeatmapProps) {
     const prevMonthLastDay = new Date(year, month, 0).getDate();
     for (let i = firstDayOfWeek - 1; i >= 0; i--) {
       const date = new Date(year, month - 1, prevMonthLastDay - i);
-      const dateKey = date.toISOString().split("T")[0];
+      const dateKey = getLocalDateKey(date);
       cells.push({
         date,
         dateKey,
@@ -109,7 +117,7 @@ export default function TrainingHeatmap({ userId }: TrainingHeatmapProps) {
     // 今月の日付を追加
     for (let day = 1; day <= lastDay.getDate(); day++) {
       const date = new Date(year, month, day);
-      const dateKey = date.toISOString().split("T")[0];
+      const dateKey = getLocalDateKey(date);
       cells.push({
         date,
         dateKey,
@@ -122,7 +130,7 @@ export default function TrainingHeatmap({ userId }: TrainingHeatmapProps) {
     const remainingCells = 42 - cells.length; // 6週間 × 7日 = 42セル
     for (let day = 1; day <= remainingCells; day++) {
       const date = new Date(year, month + 1, day);
-      const dateKey = date.toISOString().split("T")[0];
+      const dateKey = getLocalDateKey(date);
       cells.push({
         date,
         dateKey,
