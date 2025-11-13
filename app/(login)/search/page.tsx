@@ -3,6 +3,7 @@
 import { useState } from "react";
 import NamePlateImage from "@/app/component/nameplateImage";
 import TrainingHeatmap from "@/app/component/trainingHeatmap";
+import Button, { ButtonText } from "@/app/component/button";
 import { getUserData } from "@/lib/firestore/user-data";
 import { UserData } from "@/lib/firestore/user-data";
 import { DEFAULT_PROFILE_COLOR } from "@/lib/constants/colors";
@@ -57,7 +58,7 @@ export default function Search() {
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search by User ID"
-            className="w-full h-14 px-6 rounded-full border-2 border-transparent bg-gradient-to-bl from-[#FF00D6]/30 to-[#FF4D00]/30 text-gray-800 placeholder-gray-600 focus:outline-none focus:border-[#FF00D6]/50 text-sm"
+            className="w-full h-14 px-6 rounded-full border-2 border-transparent bg-linear-to-bl from-[#FF00D6]/30 to-[#FF4D00]/30 text-gray-800 placeholder-gray-600 focus:outline-none focus:border-[#FF00D6]/50 text-sm"
           />
           <button
             onClick={handleSearch}
@@ -106,12 +107,9 @@ export default function Search() {
           </div>
 
           {/* Followボタン（非機能） */}
-          <button
-            className="w-20 h-10 rounded-full bg-gradient-to-bl from-[#FF00D6] to-[#FF4D00] text-white text-xs font-bold mb-8"
-            disabled
-          >
-            Follow
-          </button>
+          <div className="mb-4">
+            <Button text={ButtonText.FOLLOW} />
+          </div>
 
           {/* TrainingHeatmap */}
           <div className="w-full">

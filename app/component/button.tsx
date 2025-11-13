@@ -3,6 +3,7 @@ export enum ButtonText {
   FINISH = "FINISH",
   DONE = "DONE",
   EDIT = "EDIT",
+  FOLLOW = "FOLLOW",
 }
 
 type ButtonProps = {
