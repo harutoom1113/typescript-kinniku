@@ -188,7 +188,7 @@ export default function Profile() {
                 className="bg-black text-white font-black text-xs h-15 w-full px-20 rounded-md"
                 disabled
               >
-                保存中...
+                loading...
               </button>
             ) : (
               <Button text={ButtonText.DONE} onClick={handleSave} />
