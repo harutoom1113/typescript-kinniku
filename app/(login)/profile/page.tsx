@@ -1,6 +1,7 @@
 "use client";
 import Button, { ButtonText } from "@/app/component/button";
 import NamePlateImage from "@/app/component/nameplateImage";
+import TrainingHeatmap from "@/app/component/trainingHeatmap";
 import { useUser } from "@/lib/auth/user-context";
 import { getUserData, updateUserData } from "@/lib/firestore/user-data";
 import { ProfileColor, DEFAULT_PROFILE_COLOR } from "@/lib/constants/colors";
@@ -256,6 +257,13 @@ export default function Profile() {
       ) : (
         <div className="w-1/2">
           <Button text={ButtonText.EDIT} onClick={handleEdit} />
+        </div>
+      )}
+
+      {/* Training Heatmap */}
+      {user && (
+        <div className="w-full max-w-2xl mt-8 mb-8">
+          <TrainingHeatmap userId={user.uid} />
         </div>
       )}
     </div>
