@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 export default function Footer() {
   return (
-    <div className="flex flex-row justify-around items-center h-20 w-full fixed bottom-0 left-0 right-0 border-t ">
+    <div className="flex flex-row bg-white justify-around items-center h-20 w-full fixed bottom-0 left-0 right-0 border-t ">
       <Link href="/home">
         <House />
       </Link>
