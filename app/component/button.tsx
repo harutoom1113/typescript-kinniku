@@ -1,5 +1,6 @@
 export enum ButtonText {
   TRAIN = "TRAIN",
+  FINISH = "FINISH",
   DONE = "DONE",
   EDIT = "EDIT",
 }
