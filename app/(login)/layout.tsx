@@ -1,0 +1,20 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { adminAuth } from "@/lib/firebase/admin";
+
+export default async function ProtectedLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const cookieStore = await cookies();
+  const session = cookieStore.get("session")?.value;
+  if (!session) redirect("/");
+
+  try {
+    await adminAuth.verifySessionCookie(session, true);
+  } catch {
+    redirect("/");
+  }
+  return <>{children}</>;
+}
