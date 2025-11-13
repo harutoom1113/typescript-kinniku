@@ -35,7 +35,7 @@ export default function CalendarTileJP() {
   return (
     <div className="inline-flex flex-col items-center select-none">
       {/* ダークグレーの本体 */}
-      <div className="bg-neutral-800 text-white w-40 h-40 flex flex-col items-center justify-center">
+      <div className="bg-neutral-800 text-white w-60 h-60 flex flex-col items-center justify-center rounded-2xl">
         <div className="text-2xl font-semibold leading-none mb-2">
           {weekday} {month}
         </div>
