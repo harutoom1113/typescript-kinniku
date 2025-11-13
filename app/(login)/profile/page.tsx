@@ -179,7 +179,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-gray-100">
+    <div className="flex flex-col items-center pt-15">
       <NamePlateImage
         name={formData.name}
         place={formData.place}

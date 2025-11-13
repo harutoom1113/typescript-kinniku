@@ -101,8 +101,8 @@ export default function NamePlateImage({
         </div>
       )}
 
-      <div className="text-4xl text-black mt-10 mb-3">{name}</div>
-      <div className="text-2xl my-3">{place}</div>
+      <div className="text-4xl text-black mt-10 ">{name}</div>
+      <div className="text-2xl my-4">{place}</div>
     </div>
   );
 }
