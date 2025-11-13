@@ -1,6 +1,7 @@
 "use server";
 
 import { adminDb } from "@/lib/firebase/admin";
+import { ProfileColor } from "@/lib/constants/colors";
 
 // ユーザーデータの型定義
 export interface UserData {
@@ -10,6 +11,7 @@ export interface UserData {
   place?: string;
   height?: number;
   weight?: number;
+  profileColor?: ProfileColor;
   createdAt?: Date;
   updatedAt?: Date;
 }

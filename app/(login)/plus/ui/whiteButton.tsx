@@ -10,7 +10,7 @@ type ButtonProps = {
 
 export default function WhiteButton({ text, onClick }: ButtonProps) {
   return (
-    <button className="bg-white text-black font-black text-xs h-15 w-full px-20 rounded-md border-2">
+    <button className="bg-white text-black font-black text-xs h-15 w-full px-20 rounded-md border-2 tracking-widest">
       {text}
     </button>
   );

@@ -12,7 +12,7 @@ type ButtonProps = {
 export default function Button({ text, onClick }: ButtonProps) {
   return (
     <button
-      className="bg-black text-white font-black text-xs h-15 w-full px-20 rounded-md"
+      className="bg-black text-white font-black  text-xs h-15 w-full px-20 rounded-md tracking-widest"
       onClick={onClick}
     >
       {text}

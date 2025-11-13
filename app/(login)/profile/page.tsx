@@ -3,6 +3,7 @@ import Button, { ButtonText } from "@/app/component/button";
 import NamePlateImage from "@/app/component/nameplateImage";
 import { useUser } from "@/lib/auth/user-context";
 import { getUserData, updateUserData } from "@/lib/firestore/user-data";
+import { ProfileColor, DEFAULT_PROFILE_COLOR } from "@/lib/constants/colors";
 import { useState, useEffect } from "react";
 
 type FormDataType = {
@@ -18,6 +19,10 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isColorEditing, setIsColorEditing] = useState(false);
+  const [selectedColor, setSelectedColor] = useState<ProfileColor>(
+    DEFAULT_PROFILE_COLOR
+  );
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -47,6 +52,8 @@ export default function Profile() {
             height: userData.height || 0,
             userId: user.uid,
           });
+          // プロフィール色を設定
+          setSelectedColor(userData.profileColor || DEFAULT_PROFILE_COLOR);
         } else {
           // Firestoreにデータが存在しない場合は認証情報から初期化
           setFormData({
@@ -56,6 +63,7 @@ export default function Profile() {
             height: 0,
             userId: user.uid,
           });
+          setSelectedColor(DEFAULT_PROFILE_COLOR);
         }
       } catch (error) {
         console.error("Failed to load user data:", error);
@@ -104,7 +112,7 @@ export default function Profile() {
       // 2秒後にメッセージを消す
       setTimeout(() => {
         setMessage(null);
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.error("Failed to save user data:", error);
       setMessage({
@@ -115,7 +123,7 @@ export default function Profile() {
       // エラーメッセージも2秒後に消す
       setTimeout(() => {
         setMessage(null);
-      }, 2000);
+      }, 1000);
     } finally {
       setIsSaving(false);
     }
@@ -127,9 +135,59 @@ export default function Profile() {
     setMessage(null);
   };
 
+  // 色編集の開始
+  const handleColorEditStart = () => {
+    setIsColorEditing(true);
+  };
+
+  // 色の選択
+  const handleColorSelect = (color: ProfileColor) => {
+    setSelectedColor(color);
+  };
+
+  // 色の保存
+  const handleColorSave = async () => {
+    if (!user) return;
+
+    try {
+      await updateUserData(user.uid, {
+        profileColor: selectedColor,
+      });
+
+      setMessage({
+        type: "success",
+        text: "色を保存しました",
+      });
+      setIsColorEditing(false);
+
+      // 2秒後にメッセージを消す
+      setTimeout(() => {
+        setMessage(null);
+      }, 1000);
+    } catch (error) {
+      console.error("Failed to save color:", error);
+      setMessage({
+        type: "error",
+        text: "色の保存に失敗しました",
+      });
+
+      setTimeout(() => {
+        setMessage(null);
+      }, 1000);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center bg-gray-100">
-      <NamePlateImage name={formData.name} place={formData.place} />
+      <NamePlateImage
+        name={formData.name}
+        place={formData.place}
+        color={selectedColor}
+        isEditing={isColorEditing}
+        onEditClick={handleColorEditStart}
+        onColorSelect={handleColorSelect}
+        onSaveClick={handleColorSave}
+      />
 
       {/* メッセージ表示 */}
       {message && (
