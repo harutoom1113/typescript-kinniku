@@ -24,7 +24,7 @@ export default function SignInPage() {
       <h1 className="text-xl font-bold">Sign in</h1>
       <button
         onClick={handleGoogle}
-        className="w-full h-12 bg-black text-white rounded-md"
+        className="w-full h-12 bg-black text-white rounded-md px-5"
       >
         Sign in with Google
       </button>
