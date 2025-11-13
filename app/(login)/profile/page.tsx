@@ -44,35 +44,35 @@ export default function Profile() {
             value={formData.name}
             onChange={handleChange}
             placeholder="NAME"
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded my-3"
           />
           <input
             name="living"
             value={formData.living}
             onChange={handleChange}
             placeholder="LIVING"
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded my-3"
           />
           <input
             name="weight"
             value={formData.weight}
             onChange={handleChange}
             placeholder="WEIGHT"
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded my-3"
           />
           <input
             name="height"
             value={formData.height}
             onChange={handleChange}
             placeholder="HEIGHT"
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded my-3"
           />
           <input
             name="userId"
             value={formData.userId}
             onChange={handleChange}
             placeholder="USER ID"
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded my-3"
           />
 
           <Button text={ButtonText.DONE} onClick={handleButton} />
