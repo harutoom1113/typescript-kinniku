@@ -79,7 +79,9 @@ export default function Plus() {
         </div>
         {/* TRAIN/FINISHボタン - Riveアニメーションの上に重なる */}
         <div className="fixed bottom-32 w-1/2 z-10">
-          <div className={!selectedButton && !isTrainingActive ? "opacity-50" : ""}>
+          <div
+            className={!selectedButton && !isTrainingActive ? "opacity-50" : ""}
+          >
             <Button
               text={isTrainingActive ? ButtonText.FINISH : ButtonText.TRAIN}
               onClick={isTrainingActive ? handleFinishClick : handleTrainClick}

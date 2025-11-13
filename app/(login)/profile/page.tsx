@@ -5,6 +5,7 @@ import TrainingHeatmap from "@/app/component/trainingHeatmap";
 import { useUser } from "@/lib/auth/user-context";
 import { getUserData, updateUserData } from "@/lib/firestore/user-data";
 import { ProfileColor, DEFAULT_PROFILE_COLOR } from "@/lib/constants/colors";
+import { signOut } from "@/lib/auth/sign-out";
 import { useState, useEffect } from "react";
 
 type FormDataType = {
@@ -21,6 +22,7 @@ export default function Profile() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isColorEditing, setIsColorEditing] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const [selectedColor, setSelectedColor] = useState<ProfileColor>(
     DEFAULT_PROFILE_COLOR
   );
@@ -178,6 +180,17 @@ export default function Profile() {
     }
   };
 
+  // サインアウト処理
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Failed to sign out:", error);
+      setIsSigningOut(false);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center pt-15">
       <NamePlateImage
@@ -266,6 +279,20 @@ export default function Profile() {
           <TrainingHeatmap userId={user.uid} />
         </div>
       )}
+
+      {/* Signout Button */}
+      <div className="w-1/2 mt-8 mb-20">
+        {isSigningOut ? (
+          <button
+            className="bg-gray-400 text-gray-200 font-black text-xs h-15 w-full px-20 rounded-md cursor-not-allowed"
+            disabled
+          >
+            Signing out...
+          </button>
+        ) : (
+          <Button text={ButtonText.SIGNOUT} onClick={handleSignOut} />
+        )}
+      </div>
     </div>
   );
 }
