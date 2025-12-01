@@ -1,24 +1,94 @@
+# 筋トレヒートマップアプリ
+
+「**毎日の筋トレを、ひと目で振り返れるようにしたい**」という思いから作った、  
+筋トレの成果を **ヒートマップ** で可視化する Web アプリです。
+
+日付ごとのトレーニング実施状況を色の濃さで表現することで、
+
+- 「どのくらい継続できているか」
+- 「どの日にサボりがちか」
+- 「頑張った期間はどこか」
+
+を直感的に振り返れるようにしています。
+
+---
+
+## 🏋️‍♀️ アプリ概要
+
+- 日々のトレーニング記録を、カレンダー形式のヒートマップで可視化
+- トレーニング開始〜終了までの時間をワンタップで計測
+- 計測中は Rive アニメーションが動作し、視覚的にも「トレーニング中」であることが分かる
+- 計測終了と同時にアニメーションも停止し、**タイマー状態とアニメーションを連動**させた UX を実現
+
+---
+
+## ✨ 主な機能・工夫ポイント
+
+### 1. ヒートマップによるトレーニング可視化
+
+- 日付ごとのトレーニング状況を色の濃淡で表示
+- 継続している期間・空白期間が一目で分かる
+- 「GitHub の草」のように、モチベーションを維持しやすいデザインを意識
+
+### 2. ワンタップでトレーニング時間を計測
+
+- 「トレーニング開始」ボタンを押すとタイマーがスタート
+- 終了時にボタンを押すだけで、その日のトレーニング時間を記録
+- 計測ロジックと表示を分離し、状態管理を意識した実装
+
+### 3. Rive アニメーション × 状態管理の連動
+
+- 計測中のみ Rive アニメーションが再生され、「今まさにトレーニング中」であることを視覚的に表現
+- タイマーが停止すると同時にアニメーションも停止
+- **アニメーションの再生状態をアプリ内の state と連動**させることで、自然な UX を実現
+
+---
+
+## 🧠 この開発で学んだこと
+
+このアプリの開発を通して、特に以下の点を学びました。
+
+- タイマーやアニメーションなど、**時間に依存する UI と状態管理の組み合わせ方**
+- Rive のアニメーションをアプリ側の状態（再生・停止）ときれいに同期させる設計
+- 「ヒートマップ」「タイマー」「アニメーション」を組み合わせて、  
+  ユーザーが **継続したくなる仕組みをどう作るか** を意識した UI/UX 設計
+
+---
+
+## 📸 スクリーンショット
+
+### トレーニングタイマー & Rive アニメーション
+
+<img width="1188" height="1337" alt="筋トレアプリのプロフィール・ヒートマップ画面" src="https://github.com/user-attachments/assets/448c0ff7-4687-40d4-b091-ea8a6e609781" />
+
+### 他ユーザーのトレーニング状況の確認画面
+
+<img width="830" height="1352" alt="筋トレアプリのトレーニングタイマー画面" src="https://github.com/user-attachments/assets/00793a0c-4ad6-454e-a300-ff73081b4bb0" />
+
+<img width="1077" height="1340" alt="筋トレアプリのヒートマップ詳細画面" src="https://github.com/user-attachments/assets/80e3b3b2-57c3-42bb-8deb-2fb87365fc6a" />
+
+---
+
+## 🛠 使用技術（例）
+
+※ 実際の構成に合わせて編集してください。
+
+- フロントエンド: Next.js / React / TypeScript
+- スタイリング: Tailwind CSS
+- データ管理: Firebase / Firestore
+- アニメーション: Rive
+
+---
+
+## 🚀 今後追加したい機能（アイデア）
+
+- 種目ごとの記録（スクワット・ベンチプレスなど）と集計
+- 週・月単位の統計グラフ
+- 目標設定と達成状況の可視化
+- リマインド通知機能（「今日はまだ筋トレしていません」など）
 
 
-<h1 align="center">Hi 👋, I'm はると</h1>
-<h3 align="center">A passionate frontend developer from jp</h3>
+## 👤 開発者
 
-- 🌱 I’m currently learning **flutter**
-
-- 👨‍💻 All of my projects are available at [https://github.com/harutoom1113/typescript-kinniku](https://github.com/harutoom1113/typescript-kinniku)
-
-- 📝 I regularly write articles on [https://zenn.dev/harutoom/feed](https://zenn.dev/harutoom/feed)
-
-### Blogs posts
-<!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
-
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://twitter.com/moriri2002" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="moriri2002" height="30" width="40" /></a>
-<a href="/https://zenn.dev/harutoom/feed" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/rss.svg" alt="https://zenn.dev/harutoom/feed" height="30" width="40" /></a>
-</p>
-
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://dart.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" alt="dart" width="40" height="40"/> </a> <a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://flutter.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" alt="flutter" width="40" height="40"/> </a> <a href="https://cloud.google.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="gcp" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://kotlinlang.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/kotlinlang/kotlinlang-icon.svg" alt="kotlin" width="40" height="40"/> </a> <a href="https://nextjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/nextjs-2.svg" alt="nextjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
+- morita （GitHub: [@harutoom1113](https://github.com/harutoom1113)）
 
