@@ -5,8 +5,10 @@ import TrainingHeatmap from "@/app/component/trainingHeatmap";
 import { useUser } from "@/lib/auth/user-context";
 import { getUserData, updateUserData } from "@/lib/firestore/user-data";
 import { ProfileColor, DEFAULT_PROFILE_COLOR } from "@/lib/constants/colors";
-import { signOut } from "@/lib/auth/sign-out";
 import { useState, useEffect } from "react";
+import { useSignOut } from "@/app/hooks/signout";
+import { MessageBanner } from "@/app/component/messageBanner";
+import { ProfileForm } from "@/app/component/profileForm";
 
 type FormDataType = {
   name: string;
@@ -22,7 +24,7 @@ export default function Profile() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isColorEditing, setIsColorEditing] = useState(false);
-  const [isSigningOut, setIsSigningOut] = useState(false);
+  const { isSigningOut, handleSignOut } = useSignOut();
   const [selectedColor, setSelectedColor] = useState<ProfileColor>(
     DEFAULT_PROFILE_COLOR
   );
@@ -180,17 +182,6 @@ export default function Profile() {
     }
   };
 
-  // サインアウト処理
-  const handleSignOut = async () => {
-    setIsSigningOut(true);
-    try {
-      await signOut();
-    } catch (error) {
-      console.error("Failed to sign out:", error);
-      setIsSigningOut(false);
-    }
-  };
-
   return (
     <div className="flex flex-col items-center pt-15">
       <NamePlateImage
@@ -202,84 +193,27 @@ export default function Profile() {
         onColorSelect={handleColorSelect}
         onSaveClick={handleColorSave}
       />
-
-      {/* メッセージ表示 */}
-      {message && (
-        <div
-          className={`w-full max-w-md mx-auto mt-4 p-3 rounded-md text-center ${
-            message.type === "success"
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
-
+      <MessageBanner message={message} />
       {isEditing ? (
-        <div className="w-1/2 flex flex-col items-center">
-          {/* 編集モード */}
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="NAME"
-            className="w-full border p-2 rounded my-3 h-15"
-          />
-          <input
-            name="place"
-            value={formData.place}
-            onChange={handleChange}
-            placeholder="PLACE"
-            className="w-full border p-2 rounded my-3 h-15"
-          />
-          <input
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-            placeholder="WEIGHT"
-            className="w-full border p-2 rounded my-3 h-15"
-          />
-          <input
-            name="height"
-            value={formData.height}
-            onChange={handleChange}
-            placeholder="HEIGHT"
-            className="w-full border p-2 rounded my-3 h-15"
-          />
-          <input
-            name="userId"
-            value={formData.userId}
-            onChange={handleChange}
-            placeholder="USER ID"
-            className="w-full border p-2 rounded mt-3 mb-10 h-15"
-          />
-          <div className="mt-3 mb-20 ">
-            {isSaving ? (
-              <button
-                className="bg-black text-white font-black text-xs h-15 w-full px-20 rounded-md"
-                disabled
-              >
-                loading...
-              </button>
-            ) : (
-              <Button text={ButtonText.DONE} onClick={handleSave} />
-            )}
-          </div>
-        </div>
+        <ProfileForm
+          formData={formData}
+          isEditing={isEditing}
+          isSaving={isSaving}
+          onChange={handleChange}
+          onEdit={handleEdit}
+          onSave={handleSave}
+        />
       ) : (
         <div className="w-1/2">
           <Button text={ButtonText.EDIT} onClick={handleEdit} />
         </div>
       )}
-
       {/* Training Heatmap */}
       {user && (
         <div className="w-full max-w-2xl mt-8 mb-8">
           <TrainingHeatmap userId={user.uid} />
         </div>
       )}
-
       {/* Signout Button */}
       <div className="w-1/2 mt-8 mb-20">
         {isSigningOut ? (
